@@ -17,6 +17,7 @@ import java.util.Map;
  */
 @Component("jdbcPipeline")
 public class JdbcPipeline implements Pipeline {
+    private static int num = 0;
     @Autowired
     CcdiNewsDao newsDao;
 
@@ -40,6 +41,9 @@ public class JdbcPipeline implements Pipeline {
             news.setCreate(new Date());
             news.setUpdate(new Date());
             newsDao.save(news);
+            num ++;
+            System.out.println("url: "+news.getUrl());
+            System.out.println("total: "+num);
         }
     }
 

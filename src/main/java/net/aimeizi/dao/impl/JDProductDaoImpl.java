@@ -60,17 +60,17 @@ public class JDProductDaoImpl implements JDProductDao {
             public void setValues(PreparedStatement ps) throws SQLException {
                 // 获取src/main/webapp/images 绝对路径
                 String filepath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "images";
-                String pic = product.getPic();
-                if (StringUtils.isNotEmpty(pic)) {
-                    String filename = FilenameUtils.getName(pic);
-                    try {
-                        File file = new File(filepath, filename);
-                        FileUtils.copyURLToFile(new URL("http:" + pic), file); //将文件写入到磁盘中
-                        pic = "images/" + filename;
-                    } catch (Exception e) {
-
-                    }
-                }
+                String pic = StringUtils.isNotEmpty(product.getPic())?("http:"+product.getPic()):"";
+//                if (StringUtils.isNotEmpty(pic)) {
+//                    String filename = FilenameUtils.getName(pic);
+//                    try {
+//                        File file = new File(filepath, filename);
+//                        FileUtils.copyURLToFile(new URL("http:" + pic), file); //将文件写入到磁盘中
+//                        pic = "images/" + filename;
+//                    } catch (Exception e) {
+//
+//                    }
+//                }
                 ps.setString(1, product.getName());
                 ps.setString(2, pic);
                 ps.setDouble(3, product.getPrice());

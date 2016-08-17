@@ -40,7 +40,7 @@ public class CcdiNewsServiceImpl implements CcdiNewsService {
      * @return
      */
     public SolrServer createSolrServer() {
-        String url = "http://127.0.0.1:8080/solr/";
+        String url = "http://127.0.0.1:9090/solr/";
         HttpSolrServer solrServer = new HttpSolrServer(url);
         solrServer.setMaxRetries(1);
         solrServer.setConnectionTimeout(5000);

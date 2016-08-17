@@ -2,9 +2,9 @@ CREATE DATABASE IF NOT EXISTS `solr` DEFAULT CHARACTER SET utf8;
 
 USE `solr`;
 
-DROP TABLE IF EXISTS `news`;
+# DROP TABLE IF EXISTS `news`;
 
-CREATE TABLE `news` (
+CREATE TABLE IF NOT EXISTS `news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `content` mediumtext,
@@ -18,9 +18,9 @@ CREATE TABLE `news` (
 
 
 
-DROP TABLE IF EXISTS `product`;
+# DROP TABLE IF EXISTS `product`;
 
-CREATE TABLE `product` (
+CREATE TABLE IF NOT EXISTS `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `pic` varchar(100) DEFAULT NULL,

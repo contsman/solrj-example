@@ -132,7 +132,7 @@ public class CcdiPageProcessor implements PageProcessor {
 
         // 判断是否是列表页
         if (page.getUrl().regex(URL_LIST).match()) {
-            page.addTargetRequests(page.getHtml().xpath("//div[@class='other_center pub_center']/ul[@class='list_news_dl fixed']").links().regex(URL_POST).all());
+            page.addTargetRequests(page.getHtml().xpath("//title").links().regex(URL_POST).all());
             page.addTargetRequests(urllist);
         } else {// 抽取内容详情页
             String title = page.getHtml().xpath("//div[@class='Article_61']/h2[@class='tit']/text()").get();

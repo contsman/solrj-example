@@ -2,6 +2,7 @@ package net.aimeizi.webmagic;
 
 import net.aimeizi.dao.JDProductDao;
 import net.aimeizi.domain.Product;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.ResultItems;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 @Component("jdPipeline")
 public class JDPipeline implements Pipeline {
-
+    private static int num = 0;
     @Autowired
     JDProductDao productDao;
 
@@ -40,8 +41,9 @@ public class JDPipeline implements Pipeline {
                 }catch (Exception e){
                 }
                 try{
-                    long comment = Long.parseLong(comments.get(i));
-                    p.setComment(comment);
+                    String commentstr = comments.get(i);
+                    long commentl = StringUtils.isNotEmpty(commentstr)?(commentstr.replace("+","").contains("Íò")?Long.valueOf(commentstr.replace("+","").replace("Íò",""))*1000:Long.valueOf(commentstr.replace("+","").replace("Íò",""))):0;
+                    p.setComment(commentl);
                 }catch (Exception e){
                 }
                 p.setUrl(links.get(i));
@@ -49,6 +51,9 @@ public class JDPipeline implements Pipeline {
                 p.setCreate(new Date());
                 p.setUpdate(new Date());
                 productDao.save(p);
+                num ++;
+                System.out.println("ProductName: "+p.getName()+",Url: "+p.getUrl());
+                System.out.println("total: "+num);
             }
         }
     }

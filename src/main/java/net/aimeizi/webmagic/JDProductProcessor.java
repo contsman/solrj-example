@@ -40,13 +40,13 @@ public class JDProductProcessor implements PageProcessor {
         } else { //处理商品列表页
             List<String> names = page.getHtml().xpath("//li[@class='gl-item']/div[@class='gl-i-wrap j-sku-item']/div[@class='p-name']/a/em/text()").all();
             List<String> prices = page.getHtml().xpath("//li[@class='gl-item']/div[@class='gl-i-wrap j-sku-item']/div[@class='p-price']/strong[@class='J_price']/i/text()").all();
-            List<String> comments = page.getHtml().xpath("//li[@class='gl-item']/div[@class='gl-i-wrap j-sku-item']/div[@class='p-commit']/strong/a/text()").all();
+            List<String> comments = page.getHtml().xpath("//li[@class='gl-item']/div[@class='gl-i-wrap j-sku-item']/div[@class='p-commit']/strong//a/text()").all();
             List<String> links = page.getHtml().xpath("//li[@class='gl-item']/div[@class='gl-i-wrap j-sku-item']/div[@class='p-img']/a/@href").all();
             List<String> top3Pic = page.getHtml().xpath("//li[@class='gl-item']/div[@class='gl-i-wrap j-sku-item']/div[@class='p-img']/a/img/@src").all(); //获取页面初始化的前三张图片地址
             List<String> lazyPic = page.getHtml().xpath("//li[@class='gl-item']/div[@class='gl-i-wrap j-sku-item']/div[@class='p-img']/a/img/@data-lazy-img").all(); // 获取懒加载的图片地址
             List<String> pics = new ArrayList<>();
-            pics.addAll(top3Pic.subList(0, 3)); //获取前三张图片
-            pics.addAll(lazyPic.subList(3, lazyPic.size())); //获取除前三张之外的图片
+            pics.addAll(top3Pic); //获取前三张图片
+            pics.addAll(lazyPic); //获取除前三张之外的图片
             String category = page.getHtml().xpath("//div[@id='J_selector']/div[@class='s-title']/h3/b/text()").get();
             if ("".equals(category)) {
                 category = page.getHtml().xpath("//div[@id='J_selector']/div[@class='s-title']/h3/em/text()").get();
@@ -90,7 +90,7 @@ public class JDProductProcessor implements PageProcessor {
                 .addUrl("http://www.jd.com/allSort.aspx")// JD全部分类
                 .addPipeline(jdPipeline)
                 .setDownloader(new SeleniumDownloader(chromeDriverPath))
-                .thread(5);
+                .thread(1);
         // 注册爬虫监控
         SpiderMonitor.instance().register(jdSpider);
         jdSpider.run();
