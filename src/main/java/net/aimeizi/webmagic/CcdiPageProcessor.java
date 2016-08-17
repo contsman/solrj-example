@@ -136,6 +136,7 @@ public class CcdiPageProcessor implements PageProcessor {
             page.addTargetRequests(urllist);
         } else {// 抽取内容详情页
             String title = page.getHtml().xpath("//div[@class='Article_61']/h2[@class='tit']/text()").get();
+            if(StringUtils.isEmpty(title)) title = page.getHtml().xpath("//title/text()").get();
             String content = page.getHtml().xpath("//div[@class='content']/div[@class='TRS_Editor']/div[@class='TRS_Editor']").get();
             String pubdate = page.getHtml().xpath("//h3[@class='daty']/div[@class='daty_con']/em[@class='e e2']/text()").get();
             if (StringUtils.isNotEmpty(pubdate)) {
