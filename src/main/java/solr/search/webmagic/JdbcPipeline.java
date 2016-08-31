@@ -1,7 +1,7 @@
-package net.aimeizi.webmagic;
+package solr.search.webmagic;
 
-import net.aimeizi.dao.CcdiNewsDao;
-import net.aimeizi.domain.News;
+import solr.search.dao.CcdiNewsDao;
+import solr.search.domain.News;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

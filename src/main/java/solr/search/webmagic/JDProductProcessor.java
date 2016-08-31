@@ -1,4 +1,4 @@
-package net.aimeizi.webmagic;
+package solr.search.webmagic;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;

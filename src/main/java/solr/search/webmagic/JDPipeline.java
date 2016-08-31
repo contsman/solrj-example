@@ -1,7 +1,7 @@
-package net.aimeizi.webmagic;
+package solr.search.webmagic;
 
-import net.aimeizi.dao.JDProductDao;
-import net.aimeizi.domain.Product;
+import solr.search.dao.JDProductDao;
+import solr.search.domain.Product;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,7 +42,7 @@ public class JDPipeline implements Pipeline {
                 }
                 try{
                     String commentstr = comments.get(i);
-                    long commentl = StringUtils.isNotEmpty(commentstr)?(commentstr.replace("+","").contains("Íò")?Long.valueOf(commentstr.replace("+","").replace("Íò",""))*1000:Long.valueOf(commentstr.replace("+","").replace("Íò",""))):0;
+                    long commentl = StringUtils.isNotEmpty(commentstr)?(commentstr.replace("+","").contains("ä¸‡")?Long.valueOf(commentstr.replace("+","").replace("ä¸‡",""))*1000:Long.valueOf(commentstr.replace("+","").replace("ä¸‡",""))):0;
                     p.setComment(commentl);
                 }catch (Exception e){
                 }

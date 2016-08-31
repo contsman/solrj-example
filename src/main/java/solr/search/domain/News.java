@@ -1,4 +1,4 @@
-package net.aimeizi.domain;
+package solr.search.domain;
 
 import org.apache.solr.client.solrj.beans.Field;
 

@@ -1,7 +1,7 @@
-package net.aimeizi.dao.impl;
+package solr.search.dao.impl;
 
-import net.aimeizi.dao.JDProductDao;
-import net.aimeizi.domain.Product;
+import solr.search.dao.JDProductDao;
+import solr.search.domain.Product;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;

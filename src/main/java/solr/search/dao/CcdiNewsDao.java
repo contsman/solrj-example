@@ -1,6 +1,6 @@
-package net.aimeizi.dao;
+package solr.search.dao;
 
-import net.aimeizi.domain.News;
+import solr.search.domain.News;
 
 import java.util.List;
 

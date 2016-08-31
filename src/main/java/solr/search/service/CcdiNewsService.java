@@ -1,6 +1,6 @@
-package net.aimeizi.service;
+package solr.search.service;
 
-import net.aimeizi.domain.News;
+import solr.search.domain.News;
 
 import java.util.List;
 import java.util.Map;

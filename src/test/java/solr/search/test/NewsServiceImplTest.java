@@ -1,7 +1,7 @@
-package net.aimeizi.service.impl;
+package solr.search.test;
 
-import net.aimeizi.domain.News;
-import net.aimeizi.service.CcdiNewsService;
+import solr.search.domain.News;
+import solr.search.service.CcdiNewsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,8 +77,8 @@ public class NewsServiceImplTest extends AbstractJUnit4SpringContextTests {
      *
      * @throws Exception
      */
-    @Test
-    public void destroy() throws Exception {
-        newsService.deleteNewsByQuery("*:*");
-    }
+//    @Test
+//    public void destroy() throws Exception {
+//        newsService.deleteNewsByQuery("*:*");
+//    }
 }

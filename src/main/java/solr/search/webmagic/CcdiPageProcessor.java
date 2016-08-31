@@ -1,6 +1,9 @@
-package net.aimeizi.webmagic;
+package solr.search.webmagic;
 
 import org.apache.commons.lang3.StringUtils;
+import org.htmlcleaner.HtmlCleaner;
+import org.htmlcleaner.TagNode;
+import org.htmlcleaner.XPatherException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import us.codecraft.webmagic.Page;
@@ -132,11 +135,22 @@ public class CcdiPageProcessor implements PageProcessor {
 
         // 判断是否是列表页
         if (page.getUrl().regex(URL_LIST).match()) {
-            page.addTargetRequests(page.getHtml().xpath("//title").links().regex(URL_POST).all());
+            page.addTargetRequests(page.getHtml().xpath("//div[@class='other_center pub_center']/ul[@class='list_news_dl fixed']").links().regex(URL_POST).all());
             page.addTargetRequests(urllist);
         } else {// 抽取内容详情页
             String title = page.getHtml().xpath("//div[@class='Article_61']/h2[@class='tit']/text()").get();
             if(StringUtils.isEmpty(title)) title = page.getHtml().xpath("//title/text()").get();
+            if(StringUtils.isEmpty(title)){
+                HtmlCleaner cleaner = new HtmlCleaner();
+                TagNode tagNode = cleaner.clean(page.getHtml().get());
+                try {
+                    Object[] tags = tagNode.evaluateXPath("//title");
+                    title = String.valueOf(((TagNode) tags[0]).getText());
+                    System.out.println("xpath title-------------"+title);
+                } catch (XPatherException e) {
+                    e.printStackTrace();
+                }
+            }
             String content = page.getHtml().xpath("//div[@class='content']/div[@class='TRS_Editor']/div[@class='TRS_Editor']").get();
             String pubdate = page.getHtml().xpath("//h3[@class='daty']/div[@class='daty_con']/em[@class='e e2']/text()").get();
             if (StringUtils.isNotEmpty(pubdate)) {
@@ -146,7 +160,7 @@ public class CcdiPageProcessor implements PageProcessor {
             if (StringUtils.isNotEmpty(source)) {
                 source = source.replace("来源：", "");
             }
-            page.putField("title", title);
+            page.putField("title", StringUtils.trim(title));
             page.putField("content", replaceHTML(content));
             page.putField("pubdate", pubdate);
             page.putField("source", source);

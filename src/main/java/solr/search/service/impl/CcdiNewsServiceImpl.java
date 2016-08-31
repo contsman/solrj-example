@@ -1,8 +1,8 @@
-package net.aimeizi.service.impl;
+package solr.search.service.impl;
 
-import net.aimeizi.dao.CcdiNewsDao;
-import net.aimeizi.domain.News;
-import net.aimeizi.service.CcdiNewsService;
+import solr.search.dao.CcdiNewsDao;
+import solr.search.domain.News;
+import solr.search.service.CcdiNewsService;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.beans.DocumentObjectBinder;
@@ -15,6 +15,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -27,7 +28,7 @@ public class CcdiNewsServiceImpl implements CcdiNewsService {
     @Autowired
     private CcdiNewsDao newsDao;
 
-    @Autowired
+    @Resource(name="newsSolrServer")
     SolrServer solrServer;
 
     public void setSolrServer(SolrServer solrServer) {
@@ -40,7 +41,7 @@ public class CcdiNewsServiceImpl implements CcdiNewsService {
      * @return
      */
     public SolrServer createSolrServer() {
-        String url = "http://127.0.0.1:9090/solr/";
+        String url = "http://127.0.0.1:8983/solr/";
         HttpSolrServer solrServer = new HttpSolrServer(url);
         solrServer.setMaxRetries(1);
         solrServer.setConnectionTimeout(5000);
@@ -99,6 +100,7 @@ public class CcdiNewsServiceImpl implements CcdiNewsService {
      * @throws Exception
      */
     public void addNews(List<News> news) throws Exception {
+        if(news == null || news.isEmpty()) return;
         solrServer.addBeans(news);
         solrServer.optimize();
         solrServer.commit();

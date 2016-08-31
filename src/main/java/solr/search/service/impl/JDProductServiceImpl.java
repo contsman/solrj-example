@@ -1,7 +1,7 @@
-package net.aimeizi.service.impl;
+package solr.search.service.impl;
 
-import net.aimeizi.domain.Product;
-import net.aimeizi.service.JDProductService;
+import solr.search.domain.Product;
+import solr.search.service.JDProductService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;

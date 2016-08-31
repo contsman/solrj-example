@@ -1,7 +1,7 @@
-package net.aimeizi.controller;
+package solr.search.controller;
 
-import net.aimeizi.domain.News;
-import net.aimeizi.service.CcdiNewsService;
+import solr.search.domain.Product;
+import solr.search.service.JDProductService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,23 +14,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 京东商品搜索
+ * Created by Administrator on 2015/10/14.
+ */
 @Controller
-@RequestMapping(value = "/news")
-public class CcdiNewsController {
+public class JDProductController {
 
     @Autowired
-    private CcdiNewsService newsService;
+    JDProductService productService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String tosearch() {
-        return "search";
+        return "jd";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ModelAndView search(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("search");
+        modelAndView.setViewName("jd");
         String queryString = request.getParameter("queryString");
+        // 若什么都不输入，则表示搜索全部商品
+        queryString = StringUtils.isEmpty(queryString) ? "*" : queryString;
+        String sort = request.getParameter("sort");
         String pageNumber = request.getParameter("pageNumber");
         String pageSize = request.getParameter("pageSize");
         if (StringUtils.isEmpty(queryString)) {
@@ -39,11 +45,12 @@ public class CcdiNewsController {
         try {
             if (StringUtils.isEmpty(pageNumber) || StringUtils.isEmpty(pageSize)) {
                 pageNumber = String.valueOf("1");
-                pageSize = String.valueOf("10");
+                pageSize = String.valueOf("60");
             }
-            Map<String, Object> maps = newsService.query(queryString, Integer.parseInt(pageNumber), Integer.parseInt(pageSize));
+            Map<String, Object> maps = productService.query(queryString, sort, Integer.parseInt(pageNumber), Integer.parseInt(pageSize));
             modelAndView.addObject("queryString", queryString);
-            modelAndView.addObject("results", (List<News>) maps.get("results"));
+            modelAndView.addObject("sort", sort);
+            modelAndView.addObject("results", (List<Product>) maps.get("results"));
             long count = (Long) maps.get("totals");
             modelAndView.addObject("count", count);
             modelAndView.addObject("qtime", maps.get("qtime"));

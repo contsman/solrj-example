@@ -1,7 +1,7 @@
-package net.aimeizi.dao.impl;
+package solr.search.dao.impl;
 
-import net.aimeizi.dao.CcdiNewsDao;
-import net.aimeizi.domain.News;
+import solr.search.dao.CcdiNewsDao;
+import solr.search.domain.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;

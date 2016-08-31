@@ -1,4 +1,4 @@
-package net.aimeizi.service;
+package solr.search.service;
 
 import java.util.Map;
 
