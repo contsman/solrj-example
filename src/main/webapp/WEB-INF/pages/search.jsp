@@ -98,7 +98,7 @@
 </div>
 <footer class="bs-docs-footer">
     <div class="container">
-        <h1>solrj example</h1>
+        <h1>Solrj Search</h1>
     </div>
 </footer>
 <!--返回顶部开始-->

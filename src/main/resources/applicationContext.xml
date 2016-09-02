@@ -26,7 +26,7 @@
     <!-- solrServer 单机环境-->
 
     <bean id="solrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
-        <constructor-arg name="baseURL" value="http://127.0.0.1:8983/solr/collection1"/>
+        <constructor-arg name="baseURL" value="http://127.0.0.1:8983/solr/products"/>
     </bean>
     <bean id="newsSolrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
         <constructor-arg name="baseURL" value="http://127.0.0.1:8983/solr/news"/>
